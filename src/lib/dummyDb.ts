@@ -594,3 +594,18 @@ export const products = [
   },
   // Add additional products as needed with updated details.
 ];
+
+
+export  const profile = {
+  name: "John Doe",
+  email: "johndoe@example.com",
+  image: "https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  phone: "+1234567890",
+  address: {
+    street: "123 Main St",
+    city: "Anytown",
+    state: "California",
+    zip: "12345"
+  }
+};
+
