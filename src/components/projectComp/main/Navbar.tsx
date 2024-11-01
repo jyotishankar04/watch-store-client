@@ -9,7 +9,7 @@ interface PropTypes {
 }
 const Navbar = () => {
   return (
-    <div className="w-full flex  justify-between items-center text-white bg-black p-3 ">
+    <div className="w-full flex sticky top-0 justify-between items-center text-white bg-black p-3 ">
       <div>
         <div className="dropdown dropdown-bottom dropdown-right">
           <div tabIndex={0} role="button" className="uppercase px-4">

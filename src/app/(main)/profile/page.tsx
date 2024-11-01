@@ -36,14 +36,14 @@ const ProfilePage = () => {
     };
 
     return (
-        <div className="text-black flex flex-col justify-center items-center bg-gray-200 w-full h-full">
+        <div className="text-black flex flex-col justify-start items-center bg-gray-200 w-full h-full">
             <h1 className="text-3xl text-gray-600 font-bold py-6 uppercase">
                 Profile
             </h1>
 
             <div className="container m-auto">
-                <div className="w-full h-full p-8">
-                    <div className="w-32 h-32 m-auto border-2 flex justify-center items-center border-black overflow-hidden rounded-md">
+                <div className="w-full h-full p-8 bg-gray-200">
+                    <div className="w-32 h-32 m-auto  border-2 flex justify-center items-center border-black overflow-hidden rounded-md">
                         <Image
                             src={profile.image}
                             alt="profile"
@@ -71,7 +71,7 @@ const ProfilePage = () => {
                     </div>
 
                     {!isEditOpen ? (
-                        <div className="w-8/12 m-auto flex justify-center mt-5 items-start gap-4 flex-col">
+                        <div className="w-8/12 m-auto  flex justify-center mt-5 items-start gap-4 flex-col">
                             <ProfileInfoCard key="name"  keyName="Name" value= {profile.name}  />
                             <ProfileInfoCard key="email"  keyName= "Email" value={profile.email}  />
                             <ProfileInfoCard key="phone"  keyName= "Phone" value={profile.phone} />
@@ -81,7 +81,7 @@ const ProfilePage = () => {
                             <ProfileInfoCard key="zip"  keyName={"Zip"}  value={profile.address.zip} />
                         </div>
                     ) : (
-                        <div className="w-8/12 m-auto flex justify-center mt-5 items-start gap-4 flex-col">
+                        <div className="w-8/12 bg-gray-200 m-auto flex justify-center mt-5 items-start gap-4 flex-col">
                             <input
                                 type="text"
                                 name="name"

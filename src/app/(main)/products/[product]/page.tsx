@@ -17,7 +17,7 @@ const page = ({ params }: { params: { product: string } }) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-around bg-gray-100 ">
-        <div className="container m-auto py-10  grid items-center grid-cols-3">
+        <div className="container  m-auto p-10  grid items-center grid-cols-3">
           <div className="col-span-2 flex flex-col gap-2">
             <h3 className="text-2xl uppercase font-bold">
               {product.collection}
@@ -39,7 +39,7 @@ const page = ({ params }: { params: { product: string } }) => {
         </div>
       </div>
 
-      <div className="w-full py-10 bg-gray-100 flex justify-center items-center">
+      <div className="w-full p-10 bg-gray-100 flex justify-center items-center">
         <FeatureCard
           features={product.features}
           technicalData={product.technicalData}

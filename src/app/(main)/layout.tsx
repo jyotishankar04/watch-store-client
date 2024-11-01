@@ -1,4 +1,5 @@
 import Navbar from "@/components/projectComp/main/Navbar";
+import React from "react";
 
 export default function RootLayout({
   children,
@@ -6,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full flex flex-col items-center justify-start">
+    <div className="w-full flex bg-gray-200 h-screen  flex-col items-center justify-start">
       <div className="w-full">
         <Navbar />
       </div>

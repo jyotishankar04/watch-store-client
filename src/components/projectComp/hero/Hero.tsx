@@ -15,13 +15,13 @@ const Hero = () => {
         <div className=" w-full">
           <HeroNav />
         </div>
-        <div className="mx-auto  container h-full grid grid-cols-2">
-          <div className=" flex flex-col justify-center items-start gap-8">
-            <h1 className="text-5xl font-bold uppercase text-white">
+        <div className="mx-auto px-20 container h-full flex justify-center items-center">
+          <div className=" flex flex-col justify-center items-center gap-8">
+            <h1 className="text-5xl font-bold uppercase text-center text-white">
               Custom watches for <br /> any occasion
             </h1>
             <Link href={"/collections"}>
-              <button className="py-4 px-8 border-white border-2  text-white  hover:translate-x-3 hover:scale-x-110 duration-300 hover:border-heroOrange uppercase hover:text-heroOrange">
+              <button className="py-4 px-8 border-white border-2  text-white hover:bg-base-100 hover:translate-3 hover:scale-110 duration-300 hover:border-heroOrange uppercase hover:text-heroOrange">
                 Shop Now &#x2192;
               </button>
             </Link>

@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d3cd401-83e3-4397-a249-88de8f9b2267" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(main)/cart/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(main)/orders/[id]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(main)/orders/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/projectComp/main/OrderCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(main)/collections/[collection]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/collections/[collection]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(main)/collections/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/collections/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(main)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(main)/products/[product]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/products/[product]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(main)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/projectComp/hero/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/projectComp/hero/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/projectComp/hero/HeroNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/projectComp/hero/HeroNav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/projectComp/main/CollectionCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/projectComp/main/CollectionCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/projectComp/main/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/projectComp/main/Navbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/dummyDb.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/dummyDb.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -13,8 +27,21 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -24,19 +51,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/jyotishankar-patra/Desktop/watch-project/user-client/node_modules/typescript/lib&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/home/jyotishankar-patra/Desktop/watch-project/user-client/node_modules/typescript/lib"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -55,7 +85,11 @@
       <workItem from="1730198210583" duration="1310000" />
       <workItem from="1730219245149" duration="5217000" />
       <workItem from="1730225724062" duration="149000" />
-      <workItem from="1730395148568" duration="800000" />
+      <workItem from="1730395148568" duration="1143000" />
+      <workItem from="1730396296739" duration="5994000" />
+      <workItem from="1730449386447" duration="22000" />
+      <workItem from="1730481890342" duration="691000" />
+      <workItem from="1730482587736" duration="3584000" />
     </task>
     <servers />
   </component>
