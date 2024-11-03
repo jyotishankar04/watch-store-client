@@ -1,3 +1,4 @@
+import AuthProtection from "@/components/projectComp/main/AuthProtection";
 import Navbar from "@/components/projectComp/main/Navbar";
 import React from "react";
 
@@ -11,7 +12,7 @@ export default function RootLayout({
       <div className="w-full">
         <Navbar />
       </div>
-      {children}
+      <AuthProtection>{children}</AuthProtection>
     </div>
   );
 }

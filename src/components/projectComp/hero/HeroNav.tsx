@@ -1,6 +1,10 @@
+"use client";
+
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const HeroNav = () => {
+  const session = useSession();
   return (
     <div className="p-4 px-20 text-white flex justify-between items-center">
       <div className="text-4xl text-white">
@@ -19,11 +23,23 @@ const HeroNav = () => {
           </Link>
         </div>
 
-        <Link href={"/collections"}>
+        {session?.status == "authenticated" ? (
+          <div onClick={() => signOut()}>
+            <button className="py-2 px-4 border-error border-2  text-sm hover:bg-error hover:scale-110 duration-300 hover:border-error uppercase hover:text-white">
+              Logout &#x2192;
+            </button>
+          </div>
+        ) : session.status == "loading" ? (
           <button className="py-2 px-4 border-white border-2  text-sm hover:translate-x-3 hover:scale-x-110 duration-300 hover:border-heroOrange uppercase hover:text-heroOrange">
-            Shop Now &#x2192;
+            <div className="loading loading-spinner"></div>
           </button>
-        </Link>
+        ) : (
+          <Link href={"/api/auth/signin"}>
+            <button className="py-2 px-4 border-white border-2  text-sm hover:translate-x-3 hover:scale-x-110 duration-300 hover:border-heroOrange uppercase hover:text-heroOrange">
+              Login &#x2192;
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

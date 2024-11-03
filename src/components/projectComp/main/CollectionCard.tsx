@@ -15,7 +15,7 @@ const CollectionCard: React.FC<PropTypes> = ({
   description,
 }) => {
   return (
-    <Link href={href} className={"w-full justify-center flex-row flex"}>
+    <Link href={href} className={"w-full z-0 justify-center flex-row flex"}>
       <div className="flex grow max-w-72 justify-center items-center">
         <figure className="relative   overflow-hidden rounded-lg max-w-sm transition-all duration-300 cursor-pointer filter  group">
           <Image

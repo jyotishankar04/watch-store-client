@@ -1,15 +1,17 @@
 import Link from "next/link";
 import React from "react";
 import NavProfile from "./NavProfile";
+import { auth } from "@/auth";
 interface PropTypes {
   children?: React.ReactNode;
   title: string;
   href: string;
   className?: string;
 }
-const Navbar = () => {
+
+const Navbar = async () => {
   return (
-    <div className="w-full flex sticky top-0 justify-between items-center text-white bg-black p-3 ">
+    <div className="w-full flex sticky top-0 z-50 justify-between items-center text-white bg-black p-3 ">
       <div>
         <div className="dropdown dropdown-bottom dropdown-right">
           <div tabIndex={0} role="button" className="uppercase px-4">
@@ -52,7 +54,7 @@ const Navbar = () => {
         </div>
       </div>
       <h1 className="text-4xl font-semibold uppercase ">Seiko</h1>
-      <div>
+      <div className="z-50">
         <NavProfile />
       </div>
     </div>
