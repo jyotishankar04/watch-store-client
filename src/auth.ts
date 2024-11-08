@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import { authUserBySocial } from "./lib/axiosConfig";
+import { cookies } from "next/headers";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -27,17 +29,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user, account }) {
       if (!user) return false;
       const Provider = account?.provider;
-      if (account?.provider === "google") {
-        console.log("google");
-        console.log(user);
-      }
-      if (account?.provider === "github") {
-        console.log("github");
+
+      const response = await authUserBySocial({
+        email: user.email as string,
+        name: user.name as string,
+        image: user.image as string,
+        providerId: user.id as string,
+        providerName: Provider as string,
+      });
+      if (!response.success) {
+        return false;
       }
 
+      const { accessToken } = response.data;
+      (await cookies()).set("accessToken", accessToken, {
+        httpOnly: true,
+        secure: true,
+      });
       return true;
     },
-    async redirect({ url, baseUrl }) {
+
+    async redirect({ baseUrl }) {
       return baseUrl;
     },
     async jwt({ token }) {

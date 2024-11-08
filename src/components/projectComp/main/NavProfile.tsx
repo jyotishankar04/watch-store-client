@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { ShoppingCart } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -7,6 +8,9 @@ import Link from "next/link";
 
 const NavProfile = () => {
   const session = useSession();
+  const queryClient = useQueryClient();
+  const { data: user } = queryClient.getQueryData(["session"]);
+
   return (
     <div className="flex items-center z-50 justify-end gap-8 pr-10">
       {session.status === "loading" || session.status === "unauthenticated" ? (
@@ -32,7 +36,7 @@ const NavProfile = () => {
               <div className="w-10 rounded-full">
                 <Image
                   alt="profile image"
-                  src={session.data?.user?.image || ""}
+                  src={user?.image || ""}
                   width={50}
                   height={50}
                 />

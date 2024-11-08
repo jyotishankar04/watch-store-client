@@ -1,15 +1,17 @@
 "use client";
 
 import { profile as initialProfile } from "@/lib/dummyDb";
-import { useSession } from "next-auth/react";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const ProfilePage = () => {
-  const session = useSession();
   const [profile, setProfile] = useState(initialProfile);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editedProfile, setEditedProfile] = useState(profile);
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(["session"]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedProfile({
@@ -33,18 +35,30 @@ const ProfilePage = () => {
     setProfile(editedProfile);
     setIsEditOpen(false);
   };
+  if (!user) {
+    return (
+      <div className="text-black flex flex-col justify-start items-center bg-gray-200 w-full h-full">
+        <h1 className="text-3xl text-gray-600 font-bold py-6 uppercase">
+          Profile
+        </h1>
+        <h1 className="text-3xl text-gray-600 font-bold py-6 uppercase">
+          Profile
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <div className="text-black flex flex-col justify-start items-center bg-gray-200 w-full h-full">
-      <h1 className="text-3xl text-gray-600 font-bold py-6 uppercase">
+      <h1 className="text-3xl text-gray-600 font-bold py-4 uppercase">
         Profile
       </h1>
 
       <div className="container m-auto">
         <div className="w-full h-full p-8 bg-gray-200">
-          <div className="w-32 h-32 m-auto  border-2 flex justify-center items-center border-black overflow-hidden rounded-md">
+          <div className="w-32 h-32 m-auto  border-2 flex justify-center items-center overflow-hidden rounded-md">
             <Image
-              src={session.data?.user?.image as string}
+              src={user?.data.image as string}
               alt="profile"
               width={600}
               height={600}
@@ -71,16 +85,15 @@ const ProfilePage = () => {
 
           {!isEditOpen ? (
             <div className="w-8/12 m-auto  flex justify-center mt-5 items-start gap-4 flex-col">
-              <ProfileInfoCard key="name" keyName="Name" value={profile.name} />
+              <ProfileInfoCard
+                key="name"
+                keyName="Name"
+                value={user?.data.name}
+              />
               <ProfileInfoCard
                 key="email"
                 keyName="Email"
-                value={profile.email}
-              />
-              <ProfileInfoCard
-                key="phone"
-                keyName="Phone"
-                value={profile.phone}
+                value={user?.data.email}
               />
               <ProfileInfoCard
                 key="address"

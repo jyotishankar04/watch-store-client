@@ -3,6 +3,10 @@ import { Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
+import QueryProvider from "@/components/query-provider";
+
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const font = Source_Code_Pro({
   weight: "400",
@@ -23,7 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <SessionProvider>{children}</SessionProvider>
+        <Toaster />
+        <QueryProvider>
+          <SessionProvider>{children}</SessionProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryProvider>
       </body>
     </html>
   );

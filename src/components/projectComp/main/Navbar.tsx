@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import NavProfile from "./NavProfile";
-import { auth } from "@/auth";
 interface PropTypes {
   children?: React.ReactNode;
   title: string;
