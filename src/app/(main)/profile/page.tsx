@@ -1,16 +1,17 @@
 "use client";
 
 import { profile as initialProfile } from "@/lib/dummyDb";
-import { useQueryClient } from "@tanstack/react-query";
+import { editProfileApi, getUserApi } from "@/lib/queryUtils";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState(initialProfile);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editedProfile, setEditedProfile] = useState(profile);
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["session"]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,27 +21,43 @@ const ProfilePage = () => {
     });
   };
 
-  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditedProfile({
-      ...editedProfile,
-      address: {
-        ...editedProfile.address,
-        [name]: value,
-      },
-    });
-  };
+  const { mutate, isLoading: isSaving } = useMutation({
+    mutationFn: editProfileApi,
+    onSuccess: () => {
+      refetch();
+      setIsEditOpen(false);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const { data: user, refetch } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUserApi,
+    retry: false,
+    onSuccess: (data) => {
+      setProfile(data.data);
+      setEditedProfile(data.data);
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("Failed to fetch user data");
+    },
+  });
 
   const handleSave = () => {
-    setProfile(editedProfile);
-    setIsEditOpen(false);
+    if (!editedProfile) {
+      toast.error("Profile cannot be empty");
+      return;
+    }
+
+    mutate({
+      name: editedProfile.name,
+    });
   };
   if (!user) {
     return (
       <div className="text-black flex flex-col justify-start items-center bg-gray-200 w-full h-full">
-        <h1 className="text-3xl text-gray-600 font-bold py-6 uppercase">
-          Profile
-        </h1>
         <h1 className="text-3xl text-gray-600 font-bold py-6 uppercase">
           Profile
         </h1>
@@ -58,7 +75,7 @@ const ProfilePage = () => {
         <div className="w-full h-full p-8 bg-gray-200">
           <div className="w-32 h-32 m-auto  border-2 flex justify-center items-center overflow-hidden rounded-md">
             <Image
-              src={user?.data.image as string}
+              src={user?.data.image || ""}
               alt="profile"
               width={600}
               height={600}
@@ -73,14 +90,19 @@ const ProfilePage = () => {
             >
               {isEditOpen ? "Cancel" : "Edit Profile"}
             </button>
-            {isEditOpen && (
-              <button
-                onClick={handleSave}
-                className="py-2 px-4 duration-300 border-2 text-sm border-green-500 text-green-500 hover:bg-green-500 hover:text-white uppercase transition-colors font-bold"
-              >
-                Save
-              </button>
-            )}
+            {isEditOpen &&
+              (isSaving ? (
+                <button className="py-2 px-4 duration-300 border-2 text-sm border-black hover:bg-black hover:text-white uppercase transition-colors font-bold">
+                  Saving...
+                </button>
+              ) : (
+                <button
+                  onClick={handleSave}
+                  className="py-2 px-4 duration-300 border-2 text-sm border-black hover:bg-black hover:text-white uppercase transition-colors font-bold"
+                >
+                  Save
+                </button>
+              ))}
           </div>
 
           {!isEditOpen ? (
@@ -88,32 +110,12 @@ const ProfilePage = () => {
               <ProfileInfoCard
                 key="name"
                 keyName="Name"
-                value={user?.data.name}
+                value={user.data.name}
               />
               <ProfileInfoCard
                 key="email"
                 keyName="Email"
-                value={user?.data.email}
-              />
-              <ProfileInfoCard
-                key="address"
-                keyName="Address"
-                value={profile.address.street}
-              />
-              <ProfileInfoCard
-                key="city"
-                keyName="City"
-                value={profile.address.city}
-              />
-              <ProfileInfoCard
-                key="state"
-                keyName="State"
-                value={profile.address.state}
-              />
-              <ProfileInfoCard
-                key="zip"
-                keyName={"Zip"}
-                value={profile.address.zip}
+                value={user.data.email}
               />
             </div>
           ) : (
@@ -130,49 +132,10 @@ const ProfilePage = () => {
                 type="email"
                 name="email"
                 value={editedProfile.email}
+                disabled
                 onChange={handleInputChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 disabled:opacity-50 rounded-md w-full"
                 placeholder="Email"
-              />
-              <input
-                type="text"
-                name="phone"
-                value={editedProfile.phone}
-                onChange={handleInputChange}
-                className="border p-2 rounded-md w-full"
-                placeholder="Phone"
-              />
-              <input
-                type="text"
-                name="street"
-                value={editedProfile.address.street}
-                onChange={handleAddressChange}
-                className="border p-2 rounded-md w-full"
-                placeholder="Street"
-              />
-              <input
-                type="text"
-                name="city"
-                value={editedProfile.address.city}
-                onChange={handleAddressChange}
-                className="border p-2 rounded-md w-full"
-                placeholder="City"
-              />
-              <input
-                type="text"
-                name="state"
-                value={editedProfile.address.state}
-                onChange={handleAddressChange}
-                className="border p-2 rounded-md w-full"
-                placeholder="State"
-              />
-              <input
-                type="text"
-                name="zip"
-                value={editedProfile.address.zip}
-                onChange={handleAddressChange}
-                className="border p-2 rounded-md w-full"
-                placeholder="Zip"
               />
             </div>
           )}

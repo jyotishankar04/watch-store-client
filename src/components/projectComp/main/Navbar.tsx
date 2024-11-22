@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import NavProfile from "./NavProfile";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getCollectionApi } from "@/lib/queryUtils";
 interface PropTypes {
   children?: React.ReactNode;
   title: string;
@@ -8,7 +12,13 @@ interface PropTypes {
   className?: string;
 }
 
-const Navbar = async () => {
+const Navbar = () => {
+  const { data: collections, isLoading } = useQuery({
+    queryKey: ["collections"],
+    queryFn: getCollectionApi,
+  });
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div className="w-full flex sticky top-0 z-50 justify-between items-center text-white bg-black p-3 ">
       <div>
@@ -30,29 +40,37 @@ const Navbar = async () => {
                 </h1>
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-2 uppercase">
-              <CollectionButtons href="/collections/coutura" title="coutura" />
-              <CollectionButtons
-                href="/collections/diamonds"
-                title="diamonds"
-              />
-              <CollectionButtons
-                href="/collections/essentials"
-                title="essentials"
-              />
-
-              <CollectionButtons href="/collections/prospex" title="prospex" />
-
-              <CollectionButtons href="/collections/presage" title="presage" />
-
-              <CollectionButtons href="/collections/recraft" title="recraft" />
-
-              <CollectionButtons href="/collections/sports" title="sports" />
+            <div
+              className={`grid ${
+                collections.data && "grid-cols-2"
+              } grid-cols-1 gap-2 uppercase`}
+            >
+              {collections.data ? (
+                collections?.data.map((collection) => (
+                  <CollectionButtons
+                    key={collection.id}
+                    href={`/collections/${collection.name}`}
+                    title={collection.name}
+                  />
+                ))
+              ) : (
+                <div className="flex flex-col justify-center w-full items-center p-2">
+                  <h1 className="text-xl text-red-600 font-semibold">
+                    You are not signed in
+                  </h1>
+                  <Link
+                    href={"/auth/login"}
+                    className="btn rounded-sm text-white bg-black"
+                  >
+                    Sign in
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <h1 className="text-4xl font-semibold uppercase ">Seiko</h1>
+      <h1 className="text-4xl font-semibold uppercase ">JustWatches</h1>
       <div className="z-50">
         <NavProfile />
       </div>

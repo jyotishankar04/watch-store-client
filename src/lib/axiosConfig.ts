@@ -7,6 +7,13 @@ export const axiosApi = axios.create({
   },
 });
 
+export const postalApi = axios.create({
+  baseURL: "https://api.postalpincode.in/",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const authUserBySocial = async ({
   email,
   providerId,
@@ -31,67 +38,6 @@ export const authUserBySocial = async ({
     return {
       success: true,
       data: res.data,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error: error,
-    };
-  }
-};
-
-// export const authUserByGithub = async ({
-//   email,
-//   provider,
-//   provi,
-//   name,
-//   image,
-// }: {
-//   email: string;
-//   name: string;
-//   image: string;
-// }) => {
-//   try {
-//     const res = await axiosApi.post("/user/auth", {
-//       email,
-//       githubId,
-//       name,
-//       image,
-//     });
-//     if (!res.data.success) {
-//       return {
-//         success: false,
-//         error: res.data,
-//       };
-//     }
-
-//     return {
-//       success: true,
-//       data: res.data,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       error: error,
-//     };
-//   }
-// };
-
-export const authenticate = async () => {
-  try {
-    const res = await axiosApi.get("/user/me", {
-      withCredentials: true,
-    });
-    if (!res.data.success) {
-      return {
-        success: false,
-        error: res.data,
-      };
-    }
-
-    return {
-      success: true,
-      data: res.data.data,
     };
   } catch (error) {
     return {

@@ -3,10 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const ImageViewer: React.FC<{ images: string[] }> = ({ images }) => {
+const ImageViewer: React.FC<{
+  images: {
+    id: string;
+    url: string;
+  }[];
+}> = ({ images }) => {
   const [current, setCurrent] = useState(0);
-
-  const imageUrlRegex = /\.(jpeg|jpg|gif|png|webp)$/i;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -17,7 +20,7 @@ const ImageViewer: React.FC<{ images: string[] }> = ({ images }) => {
 
     // Cleanup the interval on component unmount or when images change
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images]);
   if (!images || images.length == 0)
     return (
       <div className="w-full h-full flex justify-center items-center">
@@ -32,18 +35,18 @@ const ImageViewer: React.FC<{ images: string[] }> = ({ images }) => {
           {images.map(
             (image, index) =>
               image &&
-              image != "" && (
+              image.url != "" && (
                 <div
                   key={index}
                   className={`w-28 h-28 border-black border p-4 rounded-md cursor-pointer overflow-hidden flex justify-center items-center  ring-black ${
                     current == index ? "ring-2" : ""
                   }`}
                 >
-                  {imageUrlRegex.test(image) ? (
+                  {image.url ? (
                     <Image
                       onClick={() => setCurrent(index)}
                       alt="image"
-                      src={image}
+                      src={image.url}
                       className="w-full h-full object-contain object-center"
                       width={200}
                       height={200}
@@ -66,13 +69,13 @@ const ImageViewer: React.FC<{ images: string[] }> = ({ images }) => {
         </div>
       </div>
       <div className="w-full h-[60vh] p-10 col-span-2">
-        {imageUrlRegex.test(images[current]) ? (
+        {images[current].url ? (
           <Image
             alt="image"
-            src={images[current]}
+            src={images[current].url}
             className="w-full h-full object-contain object-center"
-            width={200}
-            height={200}
+            width={500}
+            height={500}
           />
         ) : (
           <div className="w-full h-full flex justify-center items-center">

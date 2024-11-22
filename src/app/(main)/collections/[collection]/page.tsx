@@ -1,30 +1,49 @@
+"use client";
+
 import CollectionBanner from "@/components/projectComp/main/CollectionBanner";
 import ProductCard from "@/components/projectComp/main/ProductCard";
-import { products } from "@/lib/dummyDb";
-import React from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import React, { useState } from "react";
+import { getSingleCollectionApi } from "@/lib/queryUtils";
+import { IProductDetailsCard } from "@/lib/types";
 
-const page = ({ params }: { params: { collection: string } }) => {
+const Page = () => {
+  const { collection } = useParams();
+  const [currentCollection, setCurrentCollection] = useState(collection);
+  const queryClient = useQueryClient();
+  const collectionData = queryClient.getQueryData(["collections"]);
+  // console.log(collectionData?.data.find((c) => c.name === currentCollection));
+  const { data: products, isLoading } = useQuery({
+    queryKey: ["products", { collection: currentCollection }],
+    queryFn: () => getSingleCollectionApi(currentCollection as string),
+    enabled: !!currentCollection, // Ensures query runs only if collection is defined
+  });
+  const currentCollectionData = collectionData.data.find(
+    (data) => data.name === currentCollection
+  );
   return (
     <div className="text-black bg-gray-200 w-full h-full">
       <CollectionBanner
-        title={params.collection}
-        image="https://res.cloudinary.com/djby1yfko/image/upload/v1725793604/2ac1f26e2a19f3a1941da9fdcbab24da_i6bjed.jpg"
+        title={collection as string}
+        image={currentCollectionData.image}
       />
 
       <div>
-        <h1 className="text-4xl font-bold  uppercase p-8">
-          {params.collection}
-        </h1>
-        <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 bg-gray-200 lg:grid-cols-3 grid-cols-2 gap-4 p-4">
-          {products &&
-            products.map((product) => (
+        <h1 className="text-4xl font-bold uppercase p-8">{collection}</h1>
+
+        {isLoading ? (
+          <p>Loading products...</p>
+        ) : (
+          <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 bg-gray-200 lg:grid-cols-3 grid-cols-2 gap-4 p-4">
+            {products.data?.map((product: IProductDetailsCard) => (
               <ProductCard key={product.id} product={product} />
             ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-//https:res.cloudinary.com/djby1yfko/image/upload/v1725875529/SUR589_1_400x600_icqcel.png
-export default page;
+export default Page;
